@@ -11,8 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -32,13 +32,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mad_24012532004_practical5.R
 import com.example.mad_24012532004_practical5.screen.components.FormField
-import com.example.mad_24012532004_practical5.ui.theme.Black
-import com.example.mad_24012532004_practical5.ui.theme.Blue
 import com.example.mad_24012532004_practical5.ui.theme.GuniPink
 
 
 @Composable
-fun LoginUI(){
+fun RegisterUI(){
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -59,9 +57,10 @@ fun LoginUI(){
 
         Card(
             modifier = Modifier.fillMaxWidth(),
-            shape = MaterialTheme.shapes.medium,
-            elevation = CardDefaults.cardElevation(defaultElevation = 20.dp),
-            //colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+            shape = RoundedCornerShape(16.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+
         ){
             Column(
                 modifier = Modifier.padding(20.dp),
@@ -100,10 +99,7 @@ fun LoginUI(){
                         )
                         TextButton(
                             onClick = { /*TODO: Handle Forgot Password*/ },
-                            contentPadding = PaddingValues(bottom = 20.dp, end = 10.dp, start = 5.dp),
-                            colors = ButtonDefaults.textButtonColors(
-                                contentColor = Black
-                            )
+                            contentPadding = PaddingValues(top = 0.dp, bottom = 0.dp, end = 10.dp)
                         ) {
                             Text(text = "Forgot Password?")
                         }
@@ -117,10 +113,7 @@ fun LoginUI(){
                     onClick = { /*TODO: Handle Login*/ },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(50.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Blue
-                    )
+                        .height(50.dp)
                 ) {
                     Text(text = "Login", fontSize = 18.sp)
                 }
@@ -128,7 +121,7 @@ fun LoginUI(){
             }
         }
 
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         //Spacer(modifier = Modifier.weight(1f))
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -145,6 +138,6 @@ fun LoginUI(){
 
 @Preview(showBackground = true)
 @Composable
-fun showLoginUI(){
-    LoginUI()
+fun showRegisterUI(){
+    RegisterUI()
 }
