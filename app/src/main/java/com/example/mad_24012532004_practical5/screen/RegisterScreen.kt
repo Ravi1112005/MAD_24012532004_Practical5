@@ -3,7 +3,6 @@ package com.example.mad_24012532004_practical5.screen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -32,17 +33,26 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mad_24012532004_practical5.R
 import com.example.mad_24012532004_practical5.screen.components.FormField
+import com.example.mad_24012532004_practical5.ui.theme.Blue
 import com.example.mad_24012532004_practical5.ui.theme.GuniPink
+import com.example.mad_24012532004_practical5.ui.theme.MAD_24012532004_Practical5Theme
 
 
 @Composable
-fun RegisterUI(){
+fun RegisterUI( onLoginClicked: () -> Unit ){
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
+    var num by remember { mutableStateOf("") }
+    var city by remember { mutableStateOf("") }
+    var cnfpassword by remember { mutableStateOf("") }
 
-    Column (modifier = Modifier
-        .fillMaxSize()
-        .padding(20.dp)) {
+
+    val scrollState = rememberScrollState()
+
+    Column (
+        modifier = Modifier.fillMaxSize().padding(20.dp).verticalScroll(scrollState)
+    ) {
         Spacer(modifier = Modifier.height(20.dp))
         Image(
             painter = painterResource(id = R.drawable.logo),
@@ -59,19 +69,55 @@ fun RegisterUI(){
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
-
+            //colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
         ){
             Column(
                 modifier = Modifier.padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-                // Email Row
+                // Name Row
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = "Email", modifier = Modifier.width(80.dp), fontSize = 18.sp)
+                    Text(text = "Name", modifier = Modifier.width(100.dp), fontSize = 16.sp)
+                    FormField(
+                        label = "Name",
+                        textState = name,
+                        onTextField = { name = it }
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = "Phone Number", modifier = Modifier.width(100.dp), fontSize = 16.sp)
+                    FormField(
+                        label = "Phone Number",
+                        textState = num,
+                        onTextField = { num = it },
+                        isNumber = true
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = "City", modifier = Modifier.width(100.dp), fontSize = 16.sp)
+                    FormField(
+                        label = "City",
+                        textState = city,
+                        onTextField = { city = it }
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = "Email", modifier = Modifier.width(100.dp), fontSize = 16.sp)
                     FormField(
                         label = "Email",
                         textState = email,
@@ -79,33 +125,31 @@ fun RegisterUI(){
                     )
                 }
 
-
-                // Password Row
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.Top
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = "Password", modifier = Modifier.width(80.dp).padding(top = 35.dp), fontSize = 18.sp)
-                    Column(
-                        modifier = Modifier.weight(1f),
-                        horizontalAlignment = Alignment.End
-                    ) {
-                        FormField(
-                            modifier = Modifier.fillMaxWidth(),
-                            label = "Password",
-                            textState = password,
-                            onTextField = { password = it },
-                            isPasswordField = true
-                        )
-                        TextButton(
-                            onClick = { /*TODO: Handle Forgot Password*/ },
-                            contentPadding = PaddingValues(top = 0.dp, bottom = 0.dp, end = 10.dp)
-                        ) {
-                            Text(text = "Forgot Password?")
-                        }
-                    }
+                    Text(text = "Password", modifier = Modifier.width(100.dp), fontSize = 16.sp)
+                    FormField(
+                        label = "Password",
+                        textState = password,
+                        onTextField = { password = it },
+                        isPasswordField = true
+                    )
                 }
 
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = "Confirm Password", modifier = Modifier.width(100.dp), fontSize = 16.sp)
+                    FormField(
+                        label = "Password Again",
+                        textState = cnfpassword,
+                        onTextField = { cnfpassword = it },
+                        isPasswordField = true
+                    )
+                }
 
                 Spacer(modifier = Modifier.height(10.dp))
 
@@ -113,24 +157,27 @@ fun RegisterUI(){
                     onClick = { /*TODO: Handle Login*/ },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(50.dp)
+                        .height(50.dp),
+                    colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                        containerColor = Blue
+                    )
                 ) {
-                    Text(text = "Login", fontSize = 18.sp)
+                    Text(text = "Register", fontSize = 18.sp)
                 }
 
             }
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
-        //Spacer(modifier = Modifier.weight(1f))
+        //Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.weight(2f))
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text("Don't have an account?")
-            TextButton(onClick = { /*TODO: Handle Sign Up navigation*/ }) {
-                Text("SIGN UP", fontWeight = FontWeight.Bold, color = GuniPink)
+            Text("Don you have an account?", color = MaterialTheme.colorScheme.onBackground)
+            TextButton(onClick = { onLoginClicked() }) {
+                Text("LOGIN", fontWeight = FontWeight.Bold, color = GuniPink)
             }
         }
     }
@@ -139,5 +186,7 @@ fun RegisterUI(){
 @Preview(showBackground = true)
 @Composable
 fun showRegisterUI(){
-    RegisterUI()
+    MAD_24012532004_Practical5Theme(darkTheme = false) {
+        RegisterUI(onLoginClicked = {})
+    }
 }

@@ -26,7 +26,7 @@ fun FormField(
     isNumber: Boolean = false,
 
     ){
-    Row (modifier = Modifier.padding(10.dp)) {
+    Row (modifier = Modifier.padding(start = 10.dp, end = 10.dp, bottom = 10.dp)) {
         if (!isNumber){
             OutlinedTextField(
                 value = textState,
@@ -49,7 +49,7 @@ fun FormField(
                 label = label,
                 value = textState,
                 onTextChange = onTextField,
-                modifier = Modifier.padding(start = 16.dp)
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }
@@ -71,10 +71,8 @@ fun NumericOutLinedTextField(
             }
         },
         modifier = modifier,
-        // Correction: The label parameter needs a composable lambda
         label = { Text("Enter $label") },
         textStyle = LocalTextStyle.current.copy(fontSize = 18.sp),
-        // Correction: The placeholder parameter needs a composable lambda
         placeholder = { Text("Enter $label") },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         visualTransformation = VisualTransformation.None
@@ -84,5 +82,5 @@ fun NumericOutLinedTextField(
 @Preview(showBackground = true)
 @Composable
 fun FormFieldPreview() {
-    FormField(label = "Name" , textState = "" , onTextField = { newText ->  })
+    FormField(label = "Number" , textState = "" , onTextField = { newText ->  } , isNumber = true)
 }

@@ -35,10 +35,11 @@ import com.example.mad_24012532004_practical5.screen.components.FormField
 import com.example.mad_24012532004_practical5.ui.theme.Black
 import com.example.mad_24012532004_practical5.ui.theme.Blue
 import com.example.mad_24012532004_practical5.ui.theme.GuniPink
+import com.example.mad_24012532004_practical5.ui.theme.MAD_24012532004_Practical5Theme
 
 
 @Composable
-fun LoginUI(){
+fun LoginUI(onSignUpClicked:() -> Unit){
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -72,7 +73,7 @@ fun LoginUI(){
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = "Email", modifier = Modifier.width(80.dp), fontSize = 18.sp)
+                    Text(text = "Email", modifier = Modifier.width(100.dp), fontSize = 18.sp)
                     FormField(
                         label = "Email",
                         textState = email,
@@ -86,7 +87,7 @@ fun LoginUI(){
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.Top
                 ) {
-                    Text(text = "Password", modifier = Modifier.width(80.dp).padding(top = 35.dp), fontSize = 18.sp)
+                    Text(text = "Password", modifier = Modifier.width(100.dp).padding(top = 25.dp), fontSize = 18.sp)
                     Column(
                         modifier = Modifier.weight(1f),
                         horizontalAlignment = Alignment.End
@@ -105,7 +106,7 @@ fun LoginUI(){
                                 contentColor = Black
                             )
                         ) {
-                            Text(text = "Forgot Password?")
+                            Text(text = "Forgot Password?", color = MaterialTheme.colorScheme.onBackground)
                         }
                     }
                 }
@@ -129,14 +130,14 @@ fun LoginUI(){
         }
 
         Spacer(modifier = Modifier.height(50.dp))
-        //Spacer(modifier = Modifier.weight(1f))
+        //Spacer(modifier = Modifier.weight(2f))
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text("Don't have an account?")
-            TextButton(onClick = { /*TODO: Handle Sign Up navigation*/ }) {
+            Text("Don't have an account?", color = MaterialTheme.colorScheme.onBackground)
+            TextButton(onClick = { onSignUpClicked() }) {
                 Text("SIGN UP", fontWeight = FontWeight.Bold, color = GuniPink)
             }
         }
@@ -146,5 +147,7 @@ fun LoginUI(){
 @Preview(showBackground = true)
 @Composable
 fun showLoginUI(){
-    LoginUI()
+    MAD_24012532004_Practical5Theme(darkTheme = false) {
+        LoginUI(onSignUpClicked = {})
+    }
 }
